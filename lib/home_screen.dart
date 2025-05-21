@@ -267,7 +267,7 @@ void showDialogBox(String title, String subTitle, IconData icon, Color iconColor
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                "Smart \nAttendance",
+                "Smart \nEntry",
                 style: TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w600,
@@ -284,7 +284,7 @@ void showDialogBox(String title, String subTitle, IconData icon, Color iconColor
                   ContainerTraits(
                     color: const Color(0xffB7D4BA),
                     iconWidget: SvgPicture.asset("assets/icon/correct.svg"),
-                    text: "Present Entries",
+                    text: "Attentive Details",
                     onTap: () async{
                       final attendanceList= await getAttendanceList();
                       navigateToRecentEntries(attendanceList);
@@ -295,7 +295,7 @@ void showDialogBox(String title, String subTitle, IconData icon, Color iconColor
                   ContainerTraits(
                     color: const Color(0xffDAA7A0),
                     iconWidget: SvgPicture.asset("assets/icon/cross.svg"),
-                    text: "Absent Entries",
+                    text: "Non Attentive Details",
                     onTap: () {
                       navigateToAbsentEntries([]);
                     },
@@ -456,7 +456,7 @@ class ContainerTraits extends StatelessWidget {
             borderRadius: BorderRadius.circular(46), color: color),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [iconWidget, Text(text)],
+          children: [iconWidget, SizedBox(height: 10,),Text(text)],
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freelance/controllers/auth.dart';
 import 'package:freelance/login_page.dart';
+import 'package:freelance/utils/change_password.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'utils/small_text.dart';
@@ -16,6 +17,19 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
 
+  String? authToken ;
+  getAuthToken() async{
+    final authToken1 =  await AuthService.getToken();
+    setState(() {
+      authToken = authToken1;
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAuthToken();
+  }
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.sizeOf(context).height;
@@ -74,7 +88,16 @@ class _UserProfileState extends State<UserProfile> {
             const SizedBox(height: 20),
             InkWell(
               onTap: () {
-                showSnackBar("Feature will be added soon ");
+                // showSnackBar("Feature will be added soon ");
+                // Navigator.push(context, MaterialPageRoute(builder: (context)=> ChangePasswordScreen(authToken: authToken!)));
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                  ),
+                  builder: (context) => ChangePasswordScreen(authToken: authToken!),
+                );
               },
               borderRadius: BorderRadius.circular(14),
               child: Container(
@@ -243,7 +266,7 @@ class Button extends StatelessWidget {
     required this.onPress,
     required this.text,
     this.textColor = Colors.white,
-    this.buttonColor = const Color(0xfffffff),
+    this.buttonColor = Colors.white,
     this.width = 147,
     this.height = 44,
   });

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:freelance/Models/password_change_model.dart';
 import 'package:freelance/controllers/auth.dart';
 import 'package:http/http.dart' as http;
 
@@ -86,8 +87,36 @@ class UserController {
       return true;
     } else {
       // Print error for debug
-      print('Register failed: ${response.body}');
+      // print('Register failed: ${response.body}');
       return false;
+    }
+  }
+
+  Future<bool> changePassword({
+    required String currentPassword,
+    required String newPassword,
+    required String token,
+  }) async {
+    final url = Uri.parse('$baseUrl/users/change-password');
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(PasswordChangeRequest(
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+      ).toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      // final error = jsonDecode(response.body);
+      return false;
+      // throw Exception(error['message'] ?? 'Failed to change password');
     }
   }
 }

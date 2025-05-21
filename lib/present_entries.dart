@@ -16,7 +16,7 @@ class _RecentEntriesState extends State<RecentEntries> {
     // List presentEntries
 
     return Entries(
-        headingText: "Present Entries",
+        headingText: "Attentive Details",
         rightContainerColor: Color(0xffCEDED2),
         assetName: "assets/icon/tick_ent.svg",
       entriesPresent: widget.recentEntries,

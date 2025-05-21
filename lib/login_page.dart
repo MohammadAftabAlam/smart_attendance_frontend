@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:freelance/register_user.dart';
+import 'package:freelance/utils/forget_password.dart';
 
 import 'controllers/auth.dart';
 import 'controllers/user_controller.dart';
 import 'home_screen.dart';
-import 'login_with_credentials.dart';
 
 import 'package:local_auth/local_auth.dart';
 
@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      final data = await api.loginUser(
+      await api.loginUser(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
@@ -125,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(height: 8),
                         Text(
-                          "Smart Attendance",
+                          "Smart Entry",
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -179,18 +179,30 @@ class _LoginScreenState extends State<LoginScreen> {
                         TextField(
                           controller: emailController,
                           decoration: InputDecoration(
-                            hintText: "johndoe@gmail.com",
+                            hintText: "Email",
                             border: UnderlineInputBorder(),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                             Text("Password"),
-                            Text(
-                              "Forgot?",
-                              style: TextStyle(color: Colors.blue),
+                            TextButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                                  ),
+                                  builder: (context) => const ForgotPasswordSheet(),
+                                );
+                              },
+                              child: const Text(
+                                "Forgot Password?",
+                                style: TextStyle(color: Colors.blue),
+                              ),
                             ),
                           ],
                         ),
@@ -260,7 +272,7 @@ class _LoginScreenState extends State<LoginScreen> {
       bool canAuthenticate = await auth.canCheckBiometrics || await auth.isDeviceSupported();
 
       if (!canAuthenticate) {
-        print("Biometric authentication not supported");
+        // print("Biometric authentication not supported");
         return false;
       }
 
@@ -274,7 +286,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       return isAuthenticated;
     } catch (e) {
-      print("Authentication error: $e");
+      // print("Authentication error: $e");
       return false;
     }
   }

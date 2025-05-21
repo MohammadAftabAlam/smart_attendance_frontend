@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
             // Center App Name
             Center(
               child: Text(
-                "SMART\nATTENDANCE",
+                "SMART\nENTRY",
                 style: TextStyle(
                   fontSize: 36,
                   fontWeight: FontWeight.bold,

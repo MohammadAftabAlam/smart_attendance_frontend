@@ -17,7 +17,7 @@ class _AbsentEntriesState extends State<AbsentEntries> {
   // List<String> absentEntries = widget.absentEntries.map((e) => e.toString()).toList();
 
     return Entries(
-        headingText: "Absent Entries",
+        headingText: "Non Attentive Details",
         rightContainerColor: Color(0xffEF8179),
         dateColor: Color(0xffEF8179),
         assetName: "assets/icon/cross-ent.svg",
